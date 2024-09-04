@@ -1,0 +1,50 @@
+<a href="/map" data-turbo="false" class="btn btn-primary">
+  Back to Map
+</a>
+
+<h1>Weather in <%= @weather["name"]%></h1>
+
+<%= @weather %>
+<h1>Coordinates</h1>
+<%= @weather["coord"] %>
+
+<h2>Weather</h2>
+<%= @weather["weather"] %>
+
+<h1>Main</h1>
+<%= @weather["main"] %>
+
+<h1>Wind</h1>
+<%= @weather["wind"] %>
+
+<h1>Clouds</h1>
+<%= @weather["clouds"] %>
+
+<h1>Sys</h1>
+<%= @weather["sys"] %>
+
+<h1>Country</h1>
+<%= @weather["sys"]["country"] %>
+
+<h1>Sunrise</h1>
+<%= @weather["sys"]["sunrise"] %>
+
+<h1>Sunset</h1>
+<%= @weather["sys"]["sunset"] %>
+
+<h1>Timezone</h1>
+<%= @weather["timezone"] %>
+
+<h1>Name</h1>
+<%= @weather["name"] %>
+
+
+<div>
+	<h2>Current Weather</h2>
+	<p>Temperature: °C</p>
+	<p>Conditions: </p>
+</div>
+
+<div>
+	<h2>Forecast</h2>
+</div>
