@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root 'home#index'
-  get 'map', to: 'map#show', as: :map
-  get 'weather', to: 'weather#show', as: :weather
+  root "home#index"
+  get "map", to: "map#show", as: :map
+  get "weather", to: "weather#show", as: :weather
 end

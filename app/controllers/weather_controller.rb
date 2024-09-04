@@ -17,10 +17,10 @@ class WeatherController < ApplicationController
   private
 
   def fetch_weather(lat, lng)
-		# TODO: make this secret later
+    # TODO: make this secret later
     api_key = "3bc195e34264aed920aed88f03df7554"
     uri = URI("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lng}&appid=#{api_key}&units=metric&lang=en")
     response = Net::HTTP.get(uri)
-		JSON.parse(response)
+    JSON.parse(response)
   end
 end

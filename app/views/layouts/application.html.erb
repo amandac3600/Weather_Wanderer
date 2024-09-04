@@ -11,24 +11,6 @@
 
     <link rel="manifest" href="/manifest.json">
     <link id="favicon" rel="icon" href="<%= asset_path("favicon-light.ico") %>">
-    <script>
-      function updateFavicon() {
-        const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const faviconLink = document.getElementById("favicon");
-
-        if (prefersDarkMode) {
-          faviconLink.href = "<%= asset_path("favicon-dark.ico") %>";
-        } else {
-          faviconLink.href = "<%= asset_path("favicon-light.ico") %>";
-        }
-      }
-
-      // Initial call to set favicon based on current mode
-      updateFavicon();
-
-      // Add event listener to update favicon on mode change
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateFavicon);
-    </script>
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -38,3 +20,24 @@
     <%= yield %>
   </body>
 </html>
+
+<script>
+  function updateFavicon() {
+    const prefersLightMode = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const faviconLink = document.getElementById("favicon");
+
+    if (prefersLightMode) {
+      faviconLink.href = "<%= asset_path("favicon-light.ico") %>";
+    } else {
+      faviconLink.href = "<%= asset_path("favicon-dark.ico") %>";
+    }
+  }
+
+  // Initial call to set favicon based on current mode
+  document.addEventListener("DOMContentLoaded", updateFavicon);
+  // Event listener to update favicon on navigation from back button 
+  document.addEventListener("turbo:load", updateFavicon);
+
+  // Event listener to update favicon on mode change
+  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", updateFavicon);
+</script>
