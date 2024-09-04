@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap";
+
+body {
+  background-attachment: fixed;
+  background-image: linear-gradient(to bottom left, #2e6a8b, #dfdfd8);
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+}
