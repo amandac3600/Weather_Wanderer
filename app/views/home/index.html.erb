@@ -6,23 +6,86 @@
 	<title>Weather Wanderer</title>
 	<!-- particles.js -->
 	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- Bootstrap CSS (using the latest CDN link for 5.3.x) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Bundle with Popper (using the latest CDN link for 5.3.x) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
-	<main class="float d-flex justify-content-center text-center pt-5">
+  <header>
+    <p id="local-time"></p>
+  </header>
+	<main class="float d-flex justify-content-center text-center mt-3">
 		<div id="particles-js"></div>
 		<div class="mt-5">
-			<img style="height: 35vh" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
-			<p class="display-1 text-white fw-semibold">Weather Wanderer</p>
+			<img id="logo" style="height: 35vh" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
+			<p class="display-1 text-white fw-semibold mt-3">Weather Wanderer</p>
 			<p class="h4 text-white pb-5 fw-light" >Your Global Weather Adventure</p>
 			<a href="/map" data-turbo="false" class="btn btn-outline-light btn-lg mt-2">
 				Explore Now
 			</a>
 		</div>
 	</main>
+  <footer class="d-flex position-absolute bottom-0 align-items-center text-white pe-4" style="right: 0">
+    <p id="cloud-clicker-count" class="mb-3 h6" ><%= @click.total_clicks %></p>
+    <i class="bi bi-info-circle text-light h6 ms-2 mb-3" 
+      data-bs-toggle="tooltip"
+      data-bs-placement="top" 
+      title="Meet Cloudy Clicker!<br/>Click the cloud to increment the counter.<br/>This shows the total clicks from all users." 
+      data-bs-html="true" 
+      style="cursor: pointer;">
+    </i>
+  </footer>
 </body>
 </html>
 <!-- Floating particles -->
 <script>
+  // TODO: put into a controller
+    function updateTime() {
+    const now = new Date();
+
+    // Format the date to user's local timezone
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZoneName: "short"
+    };
+
+    const localTime = now.toLocaleString(undefined, options);
+    document.getElementById("local-time").innerText = `Local Time: ${localTime}`;
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // Cloud clicker
+  document.getElementById("logo").addEventListener('click', function() {
+    fetch("/clicks/increment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      credentials: "same-origin"
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("cloud-clicker-count").innerText = data.total_clicks;
+    })
+  });
+
+  // Help tooltip initialization
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+
   particlesJS("particles-js", {
     particles: {
       number: {

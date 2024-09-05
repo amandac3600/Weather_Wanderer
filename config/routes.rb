@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   root "home#index"
   get "map", to: "map#show", as: :map
   get "weather", to: "weather#show", as: :weather
+
+  post "clicks/increment", to: "clicks#increment"
 end
