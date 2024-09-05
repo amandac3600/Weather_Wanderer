@@ -1,52 +1,115 @@
-<a href="/map" data-turbo="false" class="btn btn-dark">
-  Back to Map
-</a>
+<head>
+	<%= stylesheet_link_tag "weather", media: "all" %>
+</head>
 
-<% unless @weather["message"].present? %>
-	<h1>Weather in <%= @weather["name"]%></h1>
+<body class="text-white">
+	<%# TODO: make sticky header %>
+	<header class="sticky-top d-flex text-white bg-dark bg-gradient p-3">
+		<button type="button" onclick="window.location.href='/'" style="border: none; background: none; padding: 0;">
+			<img style="height: 50px; cursor: pointer;" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
+		</button>
+		<a href="/map" data-turbo="false" class="btn btn-light ms-4">
+			Back to Map
+		</a>
+	</header>
 
-	<%= @weather %>
-	<h1>Coordinates</h1>
-	<%= @weather["coord"] %>
+	<main class="container-fluid mt-5 px-5">
+		<% unless @weather_data["message"].present? %>
+			<div class="row">
+				<div class="col-sm" >
+					<p id="last-updated-in-local-time" class="h4 fw-light"></p>
+					<%# TODO: add country's local time %>
+					<p class="h2"><%= @description %></p>
 
-	<h2>Weather</h2>
-	<%= @weather["weather"] %>
+					<%# TODO: make toggle between Celsius and Fahrenheit %>
+					<div class="d-flex mt-4" style="height: 20vh;">
+						<p class="" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
+						<div class="crop-container">
+							<img src="https://openweathermap.org/img/wn/<%= @weather["icon"] %>@2x.png" alt="<%= @weather["description"] %>">
+						</div>
+					</div>
 
-	<h1>Main</h1>
-	<%= @weather["main"] %>
+					<p class="h3">Feels like <%= @feels_like_in_f %></p>
 
-	<h1>Wind</h1>
-	<%= @weather["wind"] %>
+					<p class="display-3"><%= @location %></p>
 
-	<h1>Clouds</h1>
-	<%= @weather["clouds"] %>
+					<div class="container p-0 m-0">
+						<div class="row">
+							<div class="col-5 d-flex align-items-center me-3">
+								<div class="d-flex temp-container align-items-center w-50">
+									<img id="max-img" src="<%= image_path("max.png") %>" alt="Max">
+								</div>
+								<p style="min-width: 13vw" class="h5 mt-1">Max: <%= @max_in_f %></p>
+							</div>
+							<div class="col-5 d-flex align-items-center">
+								<div class="d-flex temp-container align-items-center w-50">
+									<img id="min-img" src="<%= image_path("min.png") %>" alt="Min">
+								</div>
+								<p style="min-width: 13vw" class="h5 mt-1">Min: <%= @min_in_f %></p>
+							</div>
+						</div>
 
-	<h1>Sys</h1>
-	<%= @weather["sys"] %>
+						<div class="row">
+							<div class="col-5 d-flex align-items-center me-3">
+								<div class="d-flex sun-container align-items-center w-50">
+									<img id="sunrise-img" src="<%= image_path("sunrise.png") %>" alt="Sunrise">
+								</div>
+								<p style="min-width: 13vw" class="h5 mt-1"><%= @sunrise %></p>
+							</div>
+							<div class="col-5 d-flex align-items-center">
+								<div class="d-flex sun-container align-items-center w-50">
+									<img id="sunset-img" src="<%= image_path("sunset.png") %>" alt="Sunset">
+								</div>
+								<p style="min-width: 13vw" class="h5 mt-1"><%= @sunset %></p>
+							</div>
+						</div>
+					</div>
 
-	<h1>Country</h1>
-	<%= @weather["sys"]["country"] %>
+					<br/>
+					<br/>
 
-	<h1>Sunrise</h1>
-	<%= @weather["sys"]["sunrise"] %>
+					<h1>Coordinates</h1>
+					<%= @weather_data["coord"] %>
 
-	<h1>Sunset</h1>
-	<%= @weather["sys"]["sunset"] %>
+					<h1>Visibility</h1>
+					<%= @weather_data["visibility"] %>
 
-	<h1>Timezone</h1>
-	<%= @weather["timezone"] %>
+					<h1>Wind</h1>
+					<%= @weather_data["wind"] %>
 
-	<h1>Name</h1>
-	<%= @weather["name"] %>
+					<h1>Clouds</h1>
+					<%= @weather_data["clouds"] %>
 
+				<% end %>
+			</div>
+			<div class="col-sm">
+				<p class="display-6">Hourly Forecast</p>
+				<p class="display-6">Daily Forecast</p>
+				<p><%= @forecast_data %></p>
+			</div>
+		</div>
+	</main>
+</div>
 
-	<div>
-		<h2>Current Weather</h2>
-		<p>Temperature: °C</p>
-		<p>Conditions: </p>
-	</div>
+<script>
+	// TODO: put into a controller
+	const unixTimestamp = <%= @weather_data["dt"] %>;
+  displayLocalTime(unixTimestamp);
 
-	<div>
-		<h2>Forecast</h2>
-	</div>
-<% end %>
+	function displayLocalTime(timestamp) {
+		const date = new Date(timestamp * 1000);
+
+		// Format the date to the user's local timezone
+		const options = {
+			hour: "numeric",
+			minute: "numeric",
+			timeZoneName: "short"
+		};
+
+		// Convert to local time string
+		const localTime = date.toLocaleString(undefined, options);
+
+		document.getElementById("last-updated-in-local-time").innerText = `Last updated: ${localTime}`;
+	}
+
+</script>

@@ -1,0 +1,68 @@
+body {
+  // TODO: make background color change based on weather
+  background-attachment: fixed;
+  background-image: linear-gradient(to bottom, #2e6a8b 10%, #dfdfd8 100%);
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+
+  .crop-container {
+    height: 25vh;
+    overflow: hidden;
+    position: relative;
+    width: 25vh;
+  }
+
+  .crop-container img {
+    height: 30vh;
+    left: -5%;
+    position: absolute;
+    object-fit: cover;
+    object-position: center top;
+    top: -25%;
+  }
+
+  .sun-container {
+    height: 8vh;
+    width: 8vh;
+    overflow: hidden;
+    position: relative;
+
+    #sunrise-img {
+      height: 10vh;
+      position: absolute;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    #sunset-img {
+      height: 10vh;
+      left: -10%;
+      position: absolute;
+      object-fit: cover;
+      object-position: center top;
+    }
+  }
+
+  .temp-container {
+    height: 8vh;
+    width: 8vh;
+    overflow: hidden;
+    position: relative;
+
+    #max-img {
+      height: 10vh;
+      left: -15%;
+      position: absolute;
+      object-fit: cover;
+      object-position: center top;
+    }
+  
+    #min-img {
+      height: 10vh;
+      left: -10%;
+      position: absolute;
+      object-fit: cover;
+      object-position: center top;
+    }
+  }
+}
