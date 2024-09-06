@@ -22,20 +22,20 @@ body {
   }
 
   .sun-container {
-    height: 8vh;
-    width: 8vh;
+    height: 10vh;
+    width: 10vh;
     overflow: hidden;
     position: relative;
 
     #sunrise-img {
-      height: 10vh;
+      height: 6vh;
       position: absolute;
       object-fit: cover;
       object-position: center top;
     }
 
     #sunset-img {
-      height: 10vh;
+      height: 6vh;
       left: -10%;
       position: absolute;
       object-fit: cover;
@@ -44,13 +44,13 @@ body {
   }
 
   .temp-container {
-    height: 8vh;
-    width: 8vh;
+    height: 10vh;
+    width: 10vh;
     overflow: hidden;
     position: relative;
 
     #max-img {
-      height: 10vh;
+      height: 6vh;
       left: -15%;
       position: absolute;
       object-fit: cover;
@@ -58,7 +58,7 @@ body {
     }
   
     #min-img {
-      height: 10vh;
+      height: 6vh;
       left: -10%;
       position: absolute;
       object-fit: cover;
