@@ -15,7 +15,7 @@
 </head>
 <body>
   <header>
-    <p id="local-time"></p>
+    <p id="local-time" class="text-white h6 ms-2 mt-2"></p>
   </header>
 	<main class="float d-flex justify-content-center text-center mt-3">
 		<div id="particles-js"></div>
@@ -48,9 +48,6 @@
 
     // Format the date to user's local timezone
     const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
@@ -58,7 +55,7 @@
     };
 
     const localTime = now.toLocaleString(undefined, options);
-    document.getElementById("local-time").innerText = `Local Time: ${localTime}`;
+    document.getElementById("local-time").innerText = localTime;
   }
 
   setInterval(updateTime, 1000);
