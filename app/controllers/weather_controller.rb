@@ -11,7 +11,7 @@ class WeatherController < ApplicationController
     if @latitude.present? && @longitude.present?
       @weather_data = fetch_weather(@latitude, @longitude)
       @forecast_data = fetch_forecast(@latitude, @longitude)
-			if @weather_data["message"] == "wrong longitude"
+			if @weather_data["message"] == "wrong longitude" || @weather_data["message"] == "wrong latitude"
 				# TODO: toast message for alert
 				redirect_to map_path, alert: "Invalid location."
 				return

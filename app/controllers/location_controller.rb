@@ -6,6 +6,11 @@ class LocationController < ApplicationController
 		if @user_entry.present?
 			# check if it starts with a number, if so, treat it like a zip code
 			@locations = @user_entry.match?(/\A\d/) ? fetch_locations_by_zip(@user_entry) : fetch_locations_by_name(@user_entry)
+			if @locations["message"] == "not found"
+				# TODO: toast message for alert
+				redirect_to "/", alert: "Invalid location."
+				return
+			end
 			return if !@locations.is_a?(Array)
 		end
 	end
