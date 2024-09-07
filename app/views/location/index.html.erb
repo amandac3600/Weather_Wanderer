@@ -1,0 +1,22 @@
+<head>
+</head>
+<body>
+	<table>
+		<th>Results for <%= @user_entry %></th>
+		<% if !@locations.is_a?(Array) %>
+			<% location_name = @locations["state"].nil? ? "#{@locations['name']}, #{@locations['country']}" : "#{@locations['name']}, #{@locations['state']}, #{@locations['country']}" %>
+			<tr>
+				<td><%= location_name %></td>
+				<td><%= link_to @locations["name"], weather_path(lat: @locations["lat"], lng: @locations["lon"]), class: "btn btn-outline-dark" %></td>
+			</tr>
+		<% else %>
+			<% @locations.each do |location| %>
+				<% location_name = location["state"].nil? ? "#{location['name']}, #{location['country']}" : "#{location['name']}, #{location['state']}, #{location['country']}" %>
+				<tr>
+					<td><%= location_name %></td>
+					<td><%= link_to location["name"], weather_path(lat: location["lat"], lng: location["lon"]), class: "btn btn-outline-dark" %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+</body>

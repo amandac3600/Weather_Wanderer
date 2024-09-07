@@ -16,6 +16,12 @@
 <body>
   <header>
     <p id="local-time" class="text-white h6 ms-2 mt-2"></p>
+    <%= form_with url: location_path, method: :get, local: true do %>
+      <div class="input-group mb-3">
+        <%= text_field_tag :location, nil, class: "form-control", placeholder: "Enter a city and country or zip code" %>
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </div>
+    <% end %>
   </header>
 	<main class="float d-flex justify-content-center text-center mt-3">
 		<div id="particles-js"></div>

@@ -22,6 +22,7 @@ class WeatherController < ApplicationController
       @temperature_in_c = "#{((@weather_data["main"]["temp"] - 32) * 9/5).round(0)}°C"
       @feels_like_in_f = "#{@weather_data["main"]["feels_like"].round(0)}°F"
       @feels_like_in_c = "#{((@weather_data["main"]["feels_like"] - 32) * 9/5).round(0)}°C"
+      # TODO: add state to location
 			@location = @weather_data["name"].blank? ? "Unknown Location" : "#{@weather_data["name"]}, #{@weather_data["sys"]["country"]}"
 
       # TODO: create helper method for timezone
@@ -47,6 +48,7 @@ class WeatherController < ApplicationController
           temp_min: "#{entries.map { |entry| entry['main']['temp_min'] }.min.round(0)}°F",
           description: (entries.map { |entry| entry["weather"].map { |weather| weather["description"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
           # This will return the icon for the most common weather description for the day
+          # TODO: fix this, seems like sometimes it'll show the night icon
           icon: (entries.map { |entry| entry["weather"].map { |weather| weather["icon"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
         }
         instance_variable_set("@day_#{i + 1}", day_data)
