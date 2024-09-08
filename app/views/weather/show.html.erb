@@ -3,16 +3,7 @@
 </head>
 
 <body class="text-white">
-	<%# TODO: make sticky header %>
-	<header class="sticky-top d-flex text-white bg-dark bg-gradient p-3">
-		<button type="button" onclick="window.location.href='/'" style="border: none; background: none; padding: 0;">
-			<img style="height: 50px; cursor: pointer;" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
-		</button>
-		<a href="/map" data-turbo="false" class="btn btn-light ms-4">
-			Back to Map
-		</a>
-	</header>
-
+	<%= render "shared/navbar" %>
 	<main class="container-fluid my-5">
 		<% unless @weather_data["message"].present? %>
 			<div class="row">
@@ -32,7 +23,7 @@
 
 					<p class="h3">Feels like <%= @feels_like_in_f %></p>
 
-					<p class="display-3"><%= @location %></p>
+					<p class="display-3" style="max-width: 45vw;"><%= @location %></p>
 
 					<!-- TODO: fix up max/min temps -->
 					<div class="container p-0 m-0">
@@ -83,7 +74,7 @@
 					<%= @weather_data["clouds"] %>
 				</div>
 			</div>
-			<div class="col-sm d-flex justify-content-center">
+			<div class="col-sm d-flex justify-content-center ps-0">
 				<div>
 					<!-- Future TODO: add hourly forecast -->
 					<p class="display-6 ms-3">5-Day Forecast</p>

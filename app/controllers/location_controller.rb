@@ -11,7 +11,11 @@ class LocationController < ApplicationController
 				redirect_to "/", alert: "Invalid location."
 				return
 			end
-			return if !@locations.is_a?(Array)
+
+			if @locations.is_a?(Hash)
+        redirect_to weather_path(lat: @locations["lat"], lng: @locations["lon"])
+        return
+      end
 		end
 	end
 

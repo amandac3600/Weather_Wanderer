@@ -4,27 +4,9 @@
 	<%= stylesheet_link_tag "home", media: "all" %>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<title>Weather Wanderer</title>
-	<!-- particles.js -->
-	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <!-- Bootstrap CSS (using the latest CDN link for 5.3.x) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Bundle with Popper (using the latest CDN link for 5.3.x) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
-  <header class="d-flex justify-content-center align-items-center py-3">
-    <p id="local-time" class="text-white position-absolute h6 ms-4" style="left: 0;"></p>
-    <%= form_with url: location_path, method: :get, local: true, class: "rounded w-50" do %>
-      <div class="input-group text-white">
-        <%= text_field_tag :location, nil, style: "border-right: 0; border-radius: 12px 0 0 12px", class: "form-control bg-transparent text-light", placeholder: "Enter a city or zip code"%>
-        <button class="btn btn-outline-light" type="submit" style="border-left: 0; border-radius: 0 12px 12px 0">
-          <i class="bi bi-search"></i>
-        </button>
-      </div>
-    <% end %>
-  </header>
+  <%= render "shared/navbar" %>
 	<main class="float d-flex justify-content-center text-center mt-3">
 		<div id="particles-js"></div>
 		<div class="mt-5">

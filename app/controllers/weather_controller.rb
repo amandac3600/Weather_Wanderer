@@ -42,14 +42,14 @@ class WeatherController < ApplicationController
 
       # @five_day_forecast.delete(@forecast_data["list"][0]["dt_txt"].split(" ").first)
       @five_day_forecast.each_with_index do |(date, entries), i|
+        icon = (entries.map { |entry| entry["weather"].map { |weather| weather["icon"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first
         day_data = { 
           date: Date.parse(date).strftime("%a %-m/%-d"),
           temp_max: "#{entries.map { |entry| entry['main']['temp_max'] }.max.round(0)}°F",
           temp_min: "#{entries.map { |entry| entry['main']['temp_min'] }.min.round(0)}°F",
           description: (entries.map { |entry| entry["weather"].map { |weather| weather["description"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
-          # This will return the icon for the most common weather description for the day
-          # TODO: fix this, seems like sometimes it'll show the night icon
-          icon: (entries.map { |entry| entry["weather"].map { |weather| weather["icon"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
+          # This will return the icon for the most common weather description for the day, making sure to show the day icon instead of the night icon
+          icon: icon.gsub("n", "d")
         }
         instance_variable_set("@day_#{i + 1}", day_data)
       end

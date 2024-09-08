@@ -1,0 +1,18 @@
+<header class="sticky-top d-flex justify-content-center align-items-center py-3" style="background-color: #5c879e;">
+	<!-- TODO: decide if you want to add back in local time
+	<p id="local-time" class="text-white position-absolute h6 ms-4" style="left: 0;"></p>
+	-->
+	<div class="position-absolute" style="left:0;">
+		<button class="border-0 ms-2" type="button" onclick="window.location.href='/'" style="background: none;">
+			<img style="height: 50px; cursor: pointer;" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
+		</button>
+	</div>
+	<%= form_with url: location_path, method: :get, local: true, class: "rounded w-50" do %>
+		<div class="input-group text-white">
+			<%= text_field_tag :location, nil, style: "border-right: 0; border-radius: 12px 0 0 12px", class: "form-control bg-transparent text-light", placeholder: "Enter a city or zip code"%>
+			<button class="btn btn-outline-light" type="submit" style="border-left: 0; border-radius: 0 12px 12px 0">
+				<i class="bi bi-search"></i>
+			</button>
+		</div>
+	<% end %>
+</header>
