@@ -4,7 +4,7 @@ class LocationController < ApplicationController
 		@user_entry = params[:location]
 
 		if @user_entry.present?
-			# check if it starts with a number, if so, treat it like a zip code
+			# Check if it starts with a number, if so, treat it like a zip code
 			@locations = @user_entry.match?(/\A\d/) ? fetch_locations_by_zip(@user_entry) : fetch_locations_by_name(@user_entry)
 			if (@locations.is_a?(Array) && @locations.empty?) || (@locations.is_a?(Hash) && @locations["message"] == "not found")
 				redirect_to "/", alert: "Invalid location, please try again."
@@ -13,12 +13,8 @@ class LocationController < ApplicationController
 
 			if @locations.is_a?(Hash)
         redirect_to weather_path(lat: @locations["lat"], lng: @locations["lon"])
-        return
-      end
-
-			if @locations.is_a?(Array) && @locations.size == 1
+      elsif @locations.is_a?(Array) && @locations.size == 1
 				redirect_to weather_path(lat: @locations[0]["lat"], lng: @locations[0]["lon"])
-				return
 			end
 		end
 	end

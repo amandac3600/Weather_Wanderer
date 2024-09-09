@@ -78,7 +78,6 @@ class WeatherController < ApplicationController
 
   def fetch_forecast(lat, lng)
     api_key = ENV["OPENWEATHER_API_KEY"]
-    # uri = URI("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lng}&appid=#{api_key}")
     uri = URI("https://api.openweathermap.org/data/2.5/forecast?lat=#{lat}&lon=#{lng}&appid=#{api_key}&units=imperial&lang=en")
     response = Net::HTTP.get(uri)
     JSON.parse(response)
