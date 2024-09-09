@@ -24,4 +24,13 @@ body {
     object-position: center top;
     top: -25%;
   }
+
+  table {
+    td {
+      div {
+        max-width: 240px;
+      }
+    }
+  }
+
 }
