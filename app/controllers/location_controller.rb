@@ -15,22 +15,25 @@ class LocationController < ApplicationController
         redirect_to weather_path(lat: @locations["lat"], lng: @locations["lon"])
         return
       end
+
+			if @locations.is_a?(Array) && @locations.size == 1
+				redirect_to weather_path(lat: @locations[0]["lat"], lng: @locations[0]["lon"])
+				return
+			end
 		end
 	end
 
 	private
 
 	def fetch_locations_by_name(user_entry)
-    # TODO: make this secret later
-    api_key = "3bc195e34264aed920aed88f03df7554"
+    api_key = ENV["OPENWEATHER_API_KEY"]
     uri = URI("http://api.openweathermap.org/geo/1.0/direct?q=#{user_entry}&limit=10&appid=#{api_key}")
     response = Net::HTTP.get(uri)
     JSON.parse(response)
   end
 
 	def fetch_locations_by_zip(user_entry)
-    # TODO: make this secret later
-    api_key = "3bc195e34264aed920aed88f03df7554"
+    api_key = ENV["OPENWEATHER_API_KEY"]
     uri = URI("http://api.openweathermap.org/geo/1.0/zip?zip=#{user_entry}&appid=#{api_key}")
     response = Net::HTTP.get(uri)
     JSON.parse(response)

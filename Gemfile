@@ -48,6 +48,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "scss_lint", require: false
+  gem "dotenv-rails"
 end
 
 group :development do
