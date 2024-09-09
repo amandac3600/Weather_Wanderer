@@ -1,140 +1,179 @@
 <head>
-	<%= stylesheet_link_tag "weather", media: "all" %>
+  <%= stylesheet_link_tag "weather", media: "all" %>
 </head>
 
 <body class="text-white">
-	<%= render "shared/navbar" %>
-	<main class="container-fluid my-5">
-		<% unless @weather_data["message"].present? %>
-			<div class="row">
-				<div class="col-sm d-flex justify-content-center" >
-					<div>
-					<p id="last-updated-in-local-time" class="h4 fw-light"></p>
-					<%# TODO: add country's local time %>
-					<p class="h2"><%= @description %></p>
+  <%= render "shared/navbar" %>
+  <main class="container-fluid p-5">
+    <% unless @weather_data["message"].present? %>
+      <div class="row px-3">
+        <div class="col-sm d-flex justify-content-center px-0 me-4">
+          <div class="w-100">
+            <p id="last-updated-in-local-time" class="h4 fw-light"></p>
+            <%# TODO: add country's local time %>
+            <p class="h2"><%= @description %></p>
 
-					<%# TODO: make toggle between Celsius and Fahrenheit %>
-					<div class="d-flex mt-4" style="height: 20vh;">
-						<p class="" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
-						<div class="crop-container">
-							<img src="https://openweathermap.org/img/wn/<%= @weather["icon"] %>@2x.png" alt="<%= @weather["description"] %>">
-						</div>
-					</div>
+            <%# TODO: make toggle between Celsius and Fahrenheit %>
+            <div class="d-flex mt-4" style="height: 20vh;">
+              <p class="" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
+              <div class="crop-container">
+                <img src="https://openweathermap.org/img/wn/<%= @weather["icon"] %>@2x.png" alt="<%= @weather["description"] %>">
+              </div>
+            </div>
 
-					<p class="h3">Feels like <%= @feels_like_in_f %></p>
+            <p class="h3">Feels like <%= @feels_like_in_f %></p>
 
-					<p class="display-3" style="max-width: 45vw;"><%= @location %></p>
+            <p class="display-3" style="max-width: 45vw;"><%= @location %></p>
 
-					<!-- TODO: fix up max/min temps -->
-					<div class="container p-0 m-0">
-						<div class="row">
-							<div class="col-5 d-flex align-items-center me-3">
-								<div class="d-flex temp-container align-items-center">
-									<img id="max-img" src="<%= image_path("max.png") %>" alt="Max">
-								</div>
-								<p style="min-width: 13vw" class="h5 mt-1">Max: <%= @max_in_f %></p>
-							</div>
-							<div class="col-5 d-flex align-items-center">
-								<div class="d-flex temp-container align-items-center">
-									<img id="min-img" src="<%= image_path("min.png") %>" alt="Min">
-								</div>
-								<p style="min-width: 13vw" class="h5 mt-1">Min: <%= @min_in_f %></p>
-							</div>
-						</div>
+            <!-- TODO: fix up max/min temps -->
+            <table class="table mt-4">
+              <tr>
+                <!-- TODO: try to align all of these icons (text-center not working) -->
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-5">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-thermometer-sun h4 me-2"></i>
+                      <p class="h5">Max</p>
+                    </div>
+                    <p class="h5 d-flex align-items-center"><%= @max_in_f %></p>
+                  </div>
+                </td>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-5">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-thermometer-snow h4 me-2"></i>
+                      <p class="h5">Min</p>
+                    </div>
+                    <p class="h5 d-flex align-items-center"><%= @min_in_f %></p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-5">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-sunrise h4 me-2"></i>
+											<p class="h5">Sunrise</p>
+                    </div>
+                    <p class="h5 d-flex align-items-center"><%= @sunrise %></p>
+                  </div>
+                </td>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-5">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-sunset h4 me-2"></i>
+											<p class="h5">Sunset</p>
+                    </div>
+                    <p class="h5 d-flex align-items-center"><%= @sunset %></p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div> <!-- Missing closing div for col-sm -->
+        </div> <!-- Missing closing div for row -->
+        <div class="col-sm d-flex justify-content-center px-0 ms-4">
+          <div class="w-100">
+            <!-- Future TODO: add hourly forecast -->
+            <p class="display-6 ms-3">5-Day Forecast</p>
+            <div class="d-flex">
+              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
+                <p class="h6"><%= @day_1[:date] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= @day_1[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
+                <p>High: <%= @day_1[:temp_max] %></p>
+                <p>Low: <%= @day_1[:temp_min] %></p>
+              </div>
+              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
+                <p class="h6"><%= @day_2[:date] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= @day_2[:icon] %>@2x.png" alt="<%= @day_2[:description] %>">
+                <p>High: <%= @day_2[:temp_max] %></p>
+                <p>Low: <%= @day_2[:temp_min] %></p>
+              </div>
+              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
+                <p class="h6"><%= @day_3[:date] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= @day_3[:icon] %>@2x.png" alt="<%= @day_3[:description] %>">
+                <p>High: <%= @day_3[:temp_max] %></p>
+                <p>Low: <%= @day_3[:temp_min] %></p>
+              </div>
+              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
+                <p class="h6"><%= @day_4[:date] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= @day_4[:icon] %>@2x.png" alt="<%= @day_4[:description] %>">
+                <p>High: <%= @day_4[:temp_max] %></p>
+                <p>Low: <%= @day_4[:temp_min] %></p>
+              </div>
+              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
+                <p class="h6"><%= @day_5[:date] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= @day_5[:icon] %>@2x.png" alt="<%= @day_5[:description] %>">
+                <p>High: <%= @day_5[:temp_max] %></p>
+                <p>Low: <%= @day_5[:temp_min] %></p>
+              </div>
+            </div>
+            <table class="table mt-4">
+              <tr>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-droplet h5 me-2"></i>
+                      <p class="h5">Humidity</p>
+                    </div>
+                    <p class="h5"><%= @humidity %></p>
+                  </div>
+                </td>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between ms-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-thermometer h5 me-2"></i>
+                      <p class="h5">Pressure</p>
+                    </div>
+                    <p class="h5"><%= @pressure %></p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between me-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-eye h5 me-2"></i>
+                      <p class="h5">Visibility</p>
+                    </div>
+                    <p class="h5"><%= @visibility %></p>
+                  </div>
+                </td>
+                <td class="text-white border-0" style="background: transparent;">
+                  <div class="d-flex justify-content-between ms-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-wind h5 me-2"></i>
+                      <p class="h5">Wind</p>
+                    </div>
+                    <p class="h5"><%= @wind_speed %>, <%= @wind_direction %></p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </main>
 
-						<div class="row">
-							<div class="col-5 d-flex align-items-center me-3">
-								<div class="d-flex sun-container align-items-center">
-									<img id="sunrise-img" src="<%= image_path("sunrise.png") %>" alt="Sunrise">
-								</div>
-								<p style="min-width: 13vw" class="h5 mt-1"><%= @sunrise %></p>
-							</div>
-							<div class="col-5 d-flex align-items-center">
-								<div class="d-flex sun-container align-items-center">
-									<img id="sunset-img" src="<%= image_path("sunset.png") %>" alt="Sunset">
-								</div>
-								<p style="min-width: 13vw" class="h5 mt-1"><%= @sunset %></p>
-							</div>
-						</div>
-					</div>
+  <script>
+    // TODO: put into a controller
+    const unixTimestamp = <%= @weather_data["dt"] %>;
+    displayLocalTime(unixTimestamp);
 
-					<br/>
-					<br/>
+    function displayLocalTime(timestamp) {
+      const date = new Date(timestamp * 1000);
 
-					<h1>Coordinates</h1>
-					<%= @weather_data["coord"] %>
+      // Format the date to the user's local timezone
+      const options = {
+        hour: "numeric",
+        minute: "numeric",
+        timeZoneName: "short"
+      };
 
-					<h1>Visibility</h1>
-					<%= @weather_data["visibility"] %>
+      // Convert to local time string
+      const localTime = date.toLocaleString(undefined, options);
 
-					<h1>Wind</h1>
-					<%= @weather_data["wind"] %>
-
-					<h1>Clouds</h1>
-					<%= @weather_data["clouds"] %>
-				</div>
-			</div>
-			<div class="col-sm d-flex justify-content-center ps-0">
-				<div>
-					<!-- Future TODO: add hourly forecast -->
-					<p class="display-6 ms-3">5-Day Forecast</p>
-					<div class="d-flex">
-						<div class="d-flex flex-column justify-content-center text-center">
-							<p><%= @day_1[:date] %></p>
-							<img src="https://openweathermap.org/img/wn/<%= @day_1[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-							<p>High: <%= @day_1[:temp_max] %></p>
-							<p>Low: <%= @day_1[:temp_min] %></p>
-						</div>
-						<div class="d-flex flex-column justify-content-center text-center">
-							<p><%= @day_2[:date] %></p>
-							<img src="https://openweathermap.org/img/wn/<%= @day_2[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-							<p>High: <%= @day_2[:temp_max] %></p>
-							<p>Low: <%= @day_2[:temp_min] %></p>
-						</div>
-						<div class="d-flex flex-column justify-content-center text-center">
-							<p><%= @day_3[:date] %></p>
-							<img src="https://openweathermap.org/img/wn/<%= @day_3[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-							<p>High: <%= @day_3[:temp_max] %></p>
-							<p>Low: <%= @day_3[:temp_min] %></p>
-						</div>
-						<div class="d-flex flex-column justify-content-center text-center">
-							<p><%= @day_4[:date] %></p>
-							<img src="https://openweathermap.org/img/wn/<%= @day_4[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-							<p>High: <%= @day_4[:temp_max] %></p>
-							<p>Low: <%= @day_4[:temp_min] %></p>
-						</div>
-						<div class="d-flex flex-column justify-content-center text-center">
-							<p><%= @day_5[:date] %></p>
-							<img src="https://openweathermap.org/img/wn/<%= @day_5[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-							<p>High: <%= @day_5[:temp_max] %></p>
-							<p>Low: <%= @day_5[:temp_min] %></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		<% end %>
-	</main>
-</div>
-
-<script>
-	// TODO: put into a controller
-	const unixTimestamp = <%= @weather_data["dt"] %>;
-  displayLocalTime(unixTimestamp);
-
-	function displayLocalTime(timestamp) {
-		const date = new Date(timestamp * 1000);
-
-		// Format the date to the user's local timezone
-		const options = {
-			hour: "numeric",
-			minute: "numeric",
-			timeZoneName: "short"
-		};
-
-		// Convert to local time string
-		const localTime = date.toLocaleString(undefined, options);
-
-		document.getElementById("last-updated-in-local-time").innerText = `Last updated: ${localTime}`;
-	}
-
-</script>
+      document.getElementById("last-updated-in-local-time").innerText = `Last updated: ${localTime}`;
+    }
+  </script>
+</body>

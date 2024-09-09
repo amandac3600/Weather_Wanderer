@@ -31,12 +31,18 @@ class WeatherController < ApplicationController
       offset_minutes = (timezone_offset_seconds % 3600) / 60
       formatted_offset = sprintf("%+03d:%02d", offset_hours, offset_minutes)
       timezone_string = ActiveSupport::TimeZone.all.find { |zone| zone.formatted_offset == formatted_offset }
-      @sunrise = Time.at(@weather_data["sys"]["sunrise"]).utc.in_time_zone(timezone_string).strftime("%I:%M %p %Z")
-      @sunset = Time.at(@weather_data["sys"]["sunset"]).utc.in_time_zone(timezone_string).strftime("%I:%M %p %Z")
+      @sunrise = Time.at(@weather_data["sys"]["sunrise"]).utc.in_time_zone(timezone_string).strftime("%I:%M %p")
+      @sunset = Time.at(@weather_data["sys"]["sunset"]).utc.in_time_zone(timezone_string).strftime("%I:%M %p")
       @max_in_f = "#{@weather_data["main"]["temp_max"].round(0)}°F"
       @max_in_c = "#{((@weather_data["main"]["temp_max"] - 32) * 9/5).round(0)}°C"
       @min_in_f = "#{@weather_data["main"]["temp_min"].round(0)}°F"
       @min_in_c = "#{((@weather_data["main"]["temp_min"] - 32) * 9/5).round(0)}°C"
+
+      @humidity = "#{@weather_data["main"]["humidity"]}%"
+      @pressure = "#{(@weather_data["main"]["pressure"]* 0.02953).round(2)} inHg" # convert hPa to inHg
+      @visibility = "#{(@weather_data["visibility"] * 0.000621371).round(1)} mi" # convert meters to miles
+      @wind_direction = wind_direction(@weather_data["wind"]["deg"])
+      @wind_speed = "#{@weather_data["wind"]["speed"]} mph"
 
       @five_day_forecast = @forecast_data["list"].group_by { |entry| entry["dt_txt"].split(" ").first }
 
@@ -75,5 +81,28 @@ class WeatherController < ApplicationController
     uri = URI("https://api.openweathermap.org/data/2.5/forecast?lat=#{lat}&lon=#{lng}&appid=#{api_key}&units=imperial&lang=en")
     response = Net::HTTP.get(uri)
     JSON.parse(response)
+  end
+
+  def wind_direction(deg)
+    case deg
+    when 0..22.5, 337.5..360
+      "N"
+    when 22.5..67.5
+      "NE"
+    when 67.5..112.5
+      "E"
+    when 112.5..157.5
+      "SE"
+    when 157.5..202.5
+      "S"
+    when 202.5..247.5
+      "SW"
+    when 247.5..292.5
+      "W"
+    when 292.5..337.5
+      "NW"
+    else
+      "Unknown direction"
+    end
   end
 end

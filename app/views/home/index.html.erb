@@ -33,23 +33,25 @@
 <!-- Floating particles -->
 <script>
   // TODO: put into a controller
-    function updateTime() {
-    const now = new Date();
 
-    // Format the date to user's local timezone
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      timeZoneName: "short"
-    };
+  //TODO: figure out if we still want this
+  // function updateTime() {
+  //   const now = new Date();
 
-    const localTime = now.toLocaleString(undefined, options);
-    document.getElementById("local-time").innerText = localTime;
-  }
+  //   // Format the date to user's local timezone
+  //   const options = {
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //     second: "numeric",
+  //     timeZoneName: "short"
+  //   };
 
-  setInterval(updateTime, 1000);
-  updateTime();
+  //   const localTime = now.toLocaleString(undefined, options);
+  //   document.getElementById("local-time").innerText = localTime;
+  // }
+
+  // setInterval(updateTime, 1000);
+  // updateTime();
 
   // Cloud clicker
   document.getElementById("logo").addEventListener('click', function() {

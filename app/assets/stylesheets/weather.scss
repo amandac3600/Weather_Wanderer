@@ -20,49 +20,4 @@ body {
     object-position: center top;
     top: -25%;
   }
-
-  .sun-container {
-    height: 10vh;
-    width: 10vh;
-    overflow: hidden;
-    position: relative;
-
-    #sunrise-img {
-      height: 6vh;
-      position: absolute;
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    #sunset-img {
-      height: 6vh;
-      left: -10%;
-      position: absolute;
-      object-fit: cover;
-      object-position: center top;
-    }
-  }
-
-  .temp-container {
-    height: 10vh;
-    width: 10vh;
-    overflow: hidden;
-    position: relative;
-
-    #max-img {
-      height: 6vh;
-      left: -15%;
-      position: absolute;
-      object-fit: cover;
-      object-position: center top;
-    }
-  
-    #min-img {
-      height: 6vh;
-      left: -10%;
-      position: absolute;
-      object-fit: cover;
-      object-position: center top;
-    }
-  }
 }
