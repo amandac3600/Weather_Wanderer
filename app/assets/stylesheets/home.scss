@@ -1,11 +1,16 @@
 body {
-  background: linear-gradient(45deg, #2e6a8b, #dfdfd8);
+  background: linear-gradient(45deg, #1d4358, #dfdfd8);
   background-size: 200% 200%;
   animation: gradientMove 8s ease infinite;
   font-family: "Poppins", sans-serif;
 
   .form-control::placeholder {
-    color: rgb(219, 229, 242);
+    color: rgb(183, 186, 193);
+    font-size: 0.9rem;
+  }
+
+  .navbar {
+    background-color: #3b677e;
   }
 }
 

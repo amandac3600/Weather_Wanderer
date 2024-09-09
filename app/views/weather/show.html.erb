@@ -21,7 +21,7 @@
               </div>
             </div>
 
-            <p class="h3">Feels like <%= @feels_like_in_f %></p>
+            <p class="h3 mt-2">Feels like <%= @feels_like_in_f %></p>
 
             <p class="display-3" style="max-width: 45vw;"><%= @location %></p>
 
@@ -157,8 +157,10 @@
 
   <script>
     // TODO: put into a controller
-    const unixTimestamp = <%= @weather_data["dt"] %>;
-    displayLocalTime(unixTimestamp);
+		if (typeof unixTimestamp === "undefined") {
+			let unixTimestamp = <%= @weather_data["dt"] %>;
+			displayLocalTime(unixTimestamp);
+		}
 
     function displayLocalTime(timestamp) {
       const date = new Date(timestamp * 1000);

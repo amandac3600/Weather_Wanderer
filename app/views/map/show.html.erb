@@ -3,30 +3,19 @@
 <head>
   <title>World Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- Bootstrap CSS (using the latest CDN link for 5.3.x) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Bundle with Popper (using the latest CDN link for 5.3.x) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
-<body class="position-relative">
-  <div class="fixed-bottom ms-4 mb-4" style="width: 170px; z-index: 500;">
-    <a href="/" class="btn btn-dark" style="width: 130px;">
-      Back to Home
-    </a>
-    <i class="bi bi-info-circle text-dark h5 ms-2 pt-3" 
+<body class="">
+  <%= render "shared/navbar" %>
+  <div id="map" style="height: 95vh; width: 100vw;">
+    <i class="bi bi-info-circle text-dark h3 position-absolute top-0 end-0 me-3 mt-2" 
       data-bs-toggle="tooltip" 
-      data-bs-placement="top" 
+      data-bs-placement="bottom" 
       title="Drag the map to explore different regions and scroll to zoom.<br/>Click anywhere on the map to view the weather at that location." 
       data-bs-html="true" 
-      style="cursor: pointer;">
+      style="cursor: pointer; z-index: 500;">
     </i>
   </div>
-  <div id="map" style="height: 100vh; width: 100vw;"></div>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+  <%= render "shared/flash_message" %>
 </body>
 </html>
 

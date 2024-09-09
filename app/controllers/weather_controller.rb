@@ -13,7 +13,7 @@ class WeatherController < ApplicationController
       @forecast_data = fetch_forecast(@latitude, @longitude)
 			if @weather_data["message"] == "wrong longitude" || @weather_data["message"] == "wrong latitude"
 				# TODO: toast message for alert
-				redirect_to map_path, alert: "Invalid location."
+				redirect_to map_path, alert: "Invalid location, please try again."
 				return
 			end
 			@weather = @weather_data["weather"][0]
@@ -60,7 +60,7 @@ class WeatherController < ApplicationController
         instance_variable_set("@day_#{i + 1}", day_data)
       end
     else
-      redirect_to map_path, alert: "Invalid location."
+      redirect_to map_path, alert: "Invalid location, please try again."
     end
   end
 

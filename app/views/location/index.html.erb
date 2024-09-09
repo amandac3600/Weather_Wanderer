@@ -1,13 +1,14 @@
 <head>
+	<%= stylesheet_link_tag "location", media: "all" %>
 </head>
 <%= render "shared/navbar" %>
 <body>
-	<table>
-		<p class="display-6 text-white fw-semibold ms-4 mt-3" >The search for "<%= @user_entry %>" returned multiple results:</p>
+	<table class="ms-5" >
+		<p class="h3 text-white fw-semibold ms-5 my-4" >The search for "<%= @user_entry %>" returned multiple results:</p>
 		<% @locations.each do |location| %>
 			<% location_name = location["state"].nil? ? "#{location['name']}, #{location['country']}" : "#{location['name']}, #{location['state']}, #{location['country']}" %>
 			<tr>
-				<td class="ps-4 pb-3"><%= link_to location_name, weather_path(lat: location["lat"], lng: location["lon"]), class: "btn btn-outline-light" %></td>
+				<td class="pt-3"><%= link_to location_name, weather_path(lat: location["lat"], lng: location["lon"]), class: "btn btn-outline-light" %></td>
 			</tr>
 		<% end %>
 	</table>
