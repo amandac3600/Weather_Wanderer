@@ -9,12 +9,11 @@
       <div class="row px-3">
         <div class="col-sm d-flex justify-content-center px-0 me-4 mb-5">
           <div class="w-100">
-            <p id="last-updated-in-local-time" class="h4 fw-light"></p>
-            <%# TODO: add country's local time %>
+            <p id="last-updated-in-user-local-time" class="h4 fw-light"></p>
             <p class="h2"><%= @description %></p>
 
             <%# TODO: make toggle between Celsius and Fahrenheit %>
-            <div class="d-flex mt-4" style="height: 20vh;">
+            <div class="d-flex my-3" style="height: 20vh;">
               <p class="" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
               <div class="crop-container">
                 <img src="https://openweathermap.org/img/wn/<%= @weather["icon"] %>@2x.png" alt="<%= @weather["description"] %>">
@@ -23,7 +22,8 @@
 
             <p class="h3 mt-2">Feels like <%= @feels_like_in_f %></p>
 
-            <p class="display-3" style="max-width: 45vw;"><%= @location %></p>
+            <p class="display-3 mt-3" style="max-width: 45vw;"><%= @location %></p>
+						<p class="h5 fw-light">Local Time: <%= @location_local_time %></p>
 
             <!-- TODO: fix up max/min temps -->
             <table class="table mt-4">
@@ -175,7 +175,7 @@
       // Convert to local time string
       const localTime = date.toLocaleString(undefined, options);
 
-      document.getElementById("last-updated-in-local-time").innerText = `Last updated: ${localTime}`;
+      document.getElementById("last-updated-in-user-local-time").innerText = `Last updated: ${localTime}`;
     }
   </script>
 </body>

@@ -12,10 +12,13 @@ class WeatherController < ApplicationController
       @weather_data = fetch_weather(@latitude, @longitude)
       @forecast_data = fetch_forecast(@latitude, @longitude)
 			if @weather_data["message"] == "wrong longitude" || @weather_data["message"] == "wrong latitude"
-				# TODO: toast message for alert
 				redirect_to map_path, alert: "Invalid location, please try again."
 				return
 			end
+
+      @timezone_offset = @weather_data["timezone"]
+      @location_local_time = get_location_local_time(@timezone_offset)
+
 			@weather = @weather_data["weather"][0]
       @description = @weather["description"].capitalize
       @temperature_in_f = "#{@weather_data["main"]["temp"].round(0)}°F"
@@ -81,6 +84,12 @@ class WeatherController < ApplicationController
     uri = URI("https://api.openweathermap.org/data/2.5/forecast?lat=#{lat}&lon=#{lng}&appid=#{api_key}&units=imperial&lang=en")
     response = Net::HTTP.get(uri)
     JSON.parse(response)
+  end
+
+  def get_location_local_time(timezone_offset)
+    utc_time = Time.now.utc
+    local_time = utc_time + timezone_offset
+    local_time.strftime("%I:%M %p, %b %d") # E.g., "02:30 PM, Sep 05"
   end
 
   def wind_direction(deg)
