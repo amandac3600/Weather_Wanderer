@@ -9,8 +9,8 @@
       <div class="row px-3">
         <div class="col-sm d-flex justify-content-center px-0 me-4 mb-5">
           <div class="w-100">
-            <p id="last-updated-in-user-local-time" class="h4 fw-light"></p>
-            <p class="h2"><%= @description %></p>
+            <p id="last-updated-in-user-local-time" class="h5 fw-light"></p>
+            <p class="h2 mt-3"><%= @description %></p>
 
             <%# TODO: make toggle between Celsius and Fahrenheit %>
             <div class="d-flex my-3" style="height: 20vh;">
@@ -22,7 +22,7 @@
 
             <p class="h3 mt-2">Feels like <%= @feels_like_in_f %></p>
 
-            <p class="display-3 mt-3" style="max-width: 45vw;"><%= @location %></p>
+            <p class="display-3 mt-4" style="max-width: 45vw;"><%= @location %></p>
 						<p class="h5 fw-light">Local Time: <%= @location_local_time %></p>
 
             <!-- TODO: fix up max/min temps -->
