@@ -7,14 +7,14 @@
   <main class="container-fluid p-5">
     <% unless @weather_data["message"].present? %>
       <div class="row px-3">
-        <div class="col-sm d-flex justify-content-center px-0 me-4 mb-5">
+        <div class="col-12 col-lg-6 d-flex justify-content-center px-0 mb-5 mb-lg-0">
           <div class="w-100">
             <p id="last-updated-in-user-local-time" class="h5 fw-light"></p>
             <p class="h2 mt-3"><%= @description %></p>
 
             <%# TODO: make toggle between Celsius and Fahrenheit %>
-            <div class="d-flex my-3" style="height: 20vh;">
-              <p class="" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
+            <div class="d-flex flex-column flex-lg-row align-items-center my-3">
+              <p class="display-5 mb-lg-0" style="font-size: 7rem; line-height: normal;"><%= @temperature_in_f %></p>
               <div class="crop-container">
                 <img src="https://openweathermap.org/img/wn/<%= @weather["icon"] %>@2x.png" alt="<%= @weather["description"] %>">
               </div>
@@ -25,12 +25,12 @@
             <p class="display-3 mt-4"><%= @location %></p>
 						<p class="h5 fw-light">Local Time: <%= @location_local_time %></p>
 
-            <!-- TODO: fix up max/min temps -->
+						<!-- TODO: fix up max/min temps -->
             <table class="table mt-4">
               <tr>
-                <!-- TODO: try to align all of these icons (text-center not working) -->
+								<!-- TODO: try to align all of these icons (text-center not working) -->
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-5">
+                  <div class="d-flex justify-content-between me-lg-5">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-thermometer-sun h4 me-2"></i>
                       <p class="h5">Max</p>
@@ -50,10 +50,10 @@
               </tr>
               <tr>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-5">
+                  <div class="d-flex justify-content-between me-lg-5">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-sunrise h4 me-2"></i>
-											<p class="h5">Sunrise</p>
+                      <p class="h5">Sunrise</p>
                     </div>
                     <p class="h5 d-flex align-items-center"><%= @sunrise %></p>
                   </div>
@@ -62,55 +62,34 @@
                   <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-sunset h4 me-2"></i>
-											<p class="h5">Sunset</p>
+                      <p class="h5">Sunset</p>
                     </div>
                     <p class="h5 d-flex align-items-center"><%= @sunset %></p>
                   </div>
                 </td>
               </tr>
             </table>
-          </div> <!-- Missing closing div for col-sm -->
-        </div> <!-- Missing closing div for row -->
-        <div class="col-sm d-flex justify-content-center px-0">
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6 d-flex justify-content-center px-0">
           <div class="w-100">
-            <!-- Future TODO: add hourly forecast -->
+						<!-- Future TODO: add hourly forecast -->
             <p class="h1 ms-1 pb-4">5-Day Forecast</p>
-            <div class="d-flex position-relative" style="left: -4%">
-              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
-                <p class="h6"><%= @day_1[:date] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= @day_1[:icon] %>@2x.png" alt="<%= @day_1[:description] %>">
-                <p>High: <%= @day_1[:temp_max] %></p>
-                <p>Low: <%= @day_1[:temp_min] %></p>
-              </div>
-              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
-                <p class="h6"><%= @day_2[:date] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= @day_2[:icon] %>@2x.png" alt="<%= @day_2[:description] %>">
-                <p>High: <%= @day_2[:temp_max] %></p>
-                <p>Low: <%= @day_2[:temp_min] %></p>
-              </div>
-              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
-                <p class="h6"><%= @day_3[:date] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= @day_3[:icon] %>@2x.png" alt="<%= @day_3[:description] %>">
-                <p>High: <%= @day_3[:temp_max] %></p>
-                <p>Low: <%= @day_3[:temp_min] %></p>
-              </div>
-              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
-                <p class="h6"><%= @day_4[:date] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= @day_4[:icon] %>@2x.png" alt="<%= @day_4[:description] %>">
-                <p>High: <%= @day_4[:temp_max] %></p>
-                <p>Low: <%= @day_4[:temp_min] %></p>
-              </div>
-              <div class="d-flex flex-column justify-content-center text-center" style="width: 20%;">
-                <p class="h6"><%= @day_5[:date] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= @day_5[:icon] %>@2x.png" alt="<%= @day_5[:description] %>">
-                <p>High: <%= @day_5[:temp_max] %></p>
-                <p>Low: <%= @day_5[:temp_min] %></p>
-              </div>
+            <div class="d-flex flex-wrap justify-content-between">
+              <% [@day_1, @day_2, @day_3, @day_4, @day_5].each_with_index do |day, index| %>
+                <div class="d-flex flex-column justify-content-center text-center" style="width: 18%; margin-bottom: 10px;">
+                  <p class="h6"><%= day[:date] %></p>
+                  <img src="https://openweathermap.org/img/wn/<%= day[:icon] %>@2x.png" alt="<%= day[:description] %>">
+                  <p>High: <%= day[:temp_max] %></p>
+                  <p>Low: <%= day[:temp_min] %></p>
+                </div>
+              <% end %>
             </div>
             <table class="table mt-4">
               <tr>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-3">
+                  <div class="d-flex justify-content-between me-lg-3">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-droplet h5 me-2"></i>
                       <p class="h5">Humidity</p>
@@ -119,7 +98,7 @@
                   </div>
                 </td>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between ms-3">
+                  <div class="d-flex justify-content-between ms-lg-3">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-thermometer h5 me-2"></i>
                       <p class="h5">Pressure</p>
@@ -130,7 +109,7 @@
               </tr>
               <tr>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-3">
+                  <div class="d-flex justify-content-between me-lg-3">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-eye h5 me-2"></i>
                       <p class="h5">Visibility</p>
@@ -139,7 +118,7 @@
                   </div>
                 </td>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between ms-3">
+                  <div class="d-flex justify-content-between ms-lg-3">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-wind h5 me-2"></i>
                       <p class="h5">Wind</p>
