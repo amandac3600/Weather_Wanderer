@@ -22,7 +22,7 @@
 
             <p class="h3 mt-2">Feels like <%= @feels_like_in_f %></p>
 
-            <p class="display-3 mt-4" style="max-width: 45vw;"><%= @location %></p>
+            <p class="display-3 mt-4"><%= @location %></p>
 						<p class="h5 fw-light">Local Time: <%= @location_local_time %></p>
 
             <!-- TODO: fix up max/min temps -->
@@ -39,7 +39,7 @@
                   </div>
                 </td>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-5">
+                  <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-thermometer-snow h4 me-2"></i>
                       <p class="h5">Min</p>
@@ -59,7 +59,7 @@
                   </div>
                 </td>
                 <td class="text-white border-0" style="background: transparent;">
-                  <div class="d-flex justify-content-between me-5">
+                  <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                       <i class="bi bi-sunset h4 me-2"></i>
 											<p class="h5">Sunset</p>
@@ -144,7 +144,7 @@
                       <i class="bi bi-wind h5 me-2"></i>
                       <p class="h5">Wind</p>
                     </div>
-                    <p class="h5"><%= @wind_speed %>, <%= @wind_direction %></p>
+                    <p class="h5 wind"><%= @wind_speed %>, <%= @wind_direction %></p>
                   </div>
                 </td>
               </tr>
@@ -154,28 +154,28 @@
       </div>
     <% end %>
   </main>
-
-  <script>
-    // TODO: put into a controller
-		if (typeof unixTimestamp === "undefined") {
-			let unixTimestamp = <%= @weather_data["dt"] %>;
-			displayLocalTime(unixTimestamp);
-		}
-
-    function displayLocalTime(timestamp) {
-      const date = new Date(timestamp * 1000);
-
-      // Format the date to the user's local timezone
-      const options = {
-        hour: "numeric",
-        minute: "numeric",
-        timeZoneName: "short"
-      };
-
-      // Convert to local time string
-      const localTime = date.toLocaleString(undefined, options);
-
-      document.getElementById("last-updated-in-user-local-time").innerText = `Last updated: ${localTime}`;
-    }
-  </script>
 </body>
+
+<script>
+	// TODO: put into a controller
+	if (typeof unixTimestamp === "undefined") {
+		let unixTimestamp = <%= @weather_data["dt"] %>;
+		displayLocalTime(unixTimestamp);
+	}
+
+	function displayLocalTime(timestamp) {
+		const date = new Date(timestamp * 1000);
+
+		// Format the date to the user's local timezone
+		const options = {
+			hour: "numeric",
+			minute: "numeric",
+			timeZoneName: "short"
+		};
+
+		// Convert to local time string
+		const localTime = date.toLocaleString(undefined, options);
+
+		document.getElementById("last-updated-in-user-local-time").innerText = `Last updated: ${localTime}`;
+	}
+</script>

@@ -29,6 +29,14 @@ body {
     td {
       div {
         max-width: 240px;
+
+        p {
+          min-width: 95px;
+        }
+
+        .wind {
+          min-width: 135px;
+        }
       }
     }
   }
