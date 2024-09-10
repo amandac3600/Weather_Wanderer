@@ -22,17 +22,16 @@
 
             <p class="h3 mt-2">Feels like <%= @feels_like_in_f %></p>
 
-            <p class="display-3 mt-4"><%= @location %></p>
+            <p class="display-3 mt-4"><%= @location_name %></p>
 						<p class="h5 fw-light">Local Time: <%= @location_local_time %></p>
 
 						<!-- TODO: fix up max/min temps -->
             <table class="table mt-4">
               <tr>
-								<!-- TODO: try to align all of these icons (text-center not working) -->
                 <td class="text-white border-0" style="background: transparent;">
                   <div class="d-flex justify-content-between me-lg-5">
                     <div class="d-flex align-items-center">
-                      <i class="bi bi-thermometer-sun h4 me-2"></i>
+                      <i class="bi bi-thermometer-sun h4 ms-1 me-2"></i>
                       <p class="h5">Max</p>
                     </div>
                     <p class="h5 d-flex align-items-center"><%= @max_in_f %></p>
@@ -41,7 +40,7 @@
                 <td class="text-white border-0" style="background: transparent;">
                   <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
-                      <i class="bi bi-thermometer-snow h4 me-2"></i>
+                      <i class="bi bi-thermometer-snow h4 ms-1 me-2"></i>
                       <p class="h5">Min</p>
                     </div>
                     <p class="h5 d-flex align-items-center"><%= @min_in_f %></p>
