@@ -12,12 +12,12 @@ class WeatherController < ApplicationController
       @weather_data = fetch_weather(@latitude, @longitude)
       @forecast_data = fetch_forecast(@latitude, @longitude)
 
-			if @weather_data["message"] == "wrong longitude" || @weather_data["message"] == "wrong latitude"
-				redirect_to map_path, alert: "Invalid location, please try again."
-				return
-			end
+      if @weather_data["message"] == "wrong longitude" || @weather_data["message"] == "wrong latitude"
+        redirect_to map_path, alert: "Invalid location, please try again."
+        return
+      end
 
-			@weather = @weather_data["weather"][0]
+      @weather = @weather_data["weather"][0]
       @description = @weather["description"].capitalize
 
       calculate_location_time_and_name(@weather_data)
@@ -104,12 +104,12 @@ class WeatherController < ApplicationController
     @five_day_forecast = forecast_data["list"].group_by { |entry| entry["dt_txt"].split(" ").first }
 
     @five_day_forecast.each_with_index do |(date, entries), i|
-      icon = (entries.map { |entry| entry["weather"].map { |weather| weather["icon"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first
-      day_data = { 
+      icon = (entries.map { |entry| entry["weather"].map { |weather| weather["icon"] } }.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first
+      day_data = {
         date: Date.parse(date).strftime("%a %-m/%-d"),
         temp_max: "#{entries.map { |entry| entry['main']['temp_max'] }.max.round(0)}°F",
         temp_min: "#{entries.map { |entry| entry['main']['temp_min'] }.min.round(0)}°F",
-        description: (entries.map { |entry| entry["weather"].map { |weather| weather["description"]}}.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
+        description: (entries.map { |entry| entry["weather"].map { |weather| weather["description"] } }.group_by { |ele| ele }.max_by { |ele, occurrences| occurrences.size }.first).first,
         # This will return the icon for the most common weather description for the day, making sure to show the day icon instead of the night icon
         icon: icon.gsub("n", "d")
       }
