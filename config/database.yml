@@ -30,3 +30,4 @@ test:
 production:
   <<: *default
   # database: path/to/persistent/storage/production.sqlite3
+  database: <%= ENV['DATABASE_URL'] %>
