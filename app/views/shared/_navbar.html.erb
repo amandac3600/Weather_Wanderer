@@ -8,10 +8,7 @@
 	<% end %>
 	<%= form_with url: location_path, method: :get, local: true, class: "rounded w-50" do %>
 		<div class="input-group text-white">
-			<%= text_field_tag :location, nil, style: "border-right: 0; border-radius: 12px 0 0 12px", class: "form-control bg-transparent text-light", placeholder: "Enter a city or zip code"%>
-			<button class="btn btn-outline-light" type="submit" style="border-left: 0; border-radius: 0 12px 12px 0">
-				<i class="bi bi-search"></i>
-			</button>
+			<%= select_tag :location, options_for_select([]), style: "width: 100%", class: "form-control bg-transparent text-light searchable-select", placeholder: "Enter a city or zip code" %>
 		</div>
 	<% end %>
 	<% unless current_page?(map_path) %>
@@ -33,4 +30,35 @@
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
+
+	// Select2 initialization for location search
+	document.addEventListener("DOMContentLoaded", function() {
+		$('.searchable-select').select2({
+			placeholder: "Enter a city or zip code",
+			minimumInputLength: 1,
+			ajax: {
+				url: '/location/search',  // A new controller action we'll create for handling searches
+				dataType: 'json',
+				delay: 250, // Wait 250ms before sending the request
+				data: function (params) {
+					return {
+						q: params.term  // Send the search query to the backend
+					};
+				},
+				processResults: function (data) {
+					return { results: data.results };
+				},
+				cache: true
+			},
+			templateResult: function (result) {
+				return $('<div><a href="' + result.url + '">' + result.text + '</a></div>')
+			},
+		});
+
+		$('.searchable-select').on('select2:select', function (e) {
+				var data = e.params.data;
+				window.location.href = data.url;
+		});
+	});
+
 </script>

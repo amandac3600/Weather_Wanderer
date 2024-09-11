@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "weather", to: "weather#show", as: :weather
 
   get "location", to: "location#index", as: :location
+  get "location/search", to: "location#search"
 
   post "clicks/increment", to: "clicks#increment"
 end

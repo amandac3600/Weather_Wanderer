@@ -75,10 +75,10 @@ class WeatherController < ApplicationController
       Time.at(data_point["dt"]).strftime("%Y-%m-%d") == date
     end.map { |data_point| data_point["main"]["temp"] }
 
-    @max_in_f = "#{daily_temperatures.max.round(0)}°F"
-    @max_in_c = "#{((daily_temperatures.max.round(0) - 32) * 9/5).round(0)}°C"
-    @min_in_f = "#{daily_temperatures.min.round(0)}°F"
-    @min_in_c = "#{((daily_temperatures.min.round(0)- 32) * 9/5).round(0)}°C"
+    @max_in_f = daily_temperatures.length > 0 ? "#{daily_temperatures.max.round(0)}°F" : @temperature_in_f
+    @max_in_c = daily_temperatures.length > 0 ? "#{((daily_temperatures.max.round(0) - 32) * 9/5).round(0)}°C" : @temperature_in_c
+    @min_in_f = daily_temperatures.length > 0 ? "#{daily_temperatures.min.round(0)}°F" : @temperature_in_f
+    @min_in_c = daily_temperatures.length > 0 ? "#{((daily_temperatures.min.round(0)- 32) * 9/5).round(0)}°C" : @temperature_in_c
   end
 
   def calculate_sun_rise_and_set(weather_data)
