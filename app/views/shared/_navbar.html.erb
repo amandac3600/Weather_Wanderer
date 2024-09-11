@@ -1,9 +1,11 @@
 <header class="navbar sticky-top d-flex justify-content-center align-items-center py-3">
-	<div class="position-absolute start-0">
-		<button class="border-0 ms-2" type="button" onclick="window.location.href='/'" style="background: none;">
-			<img style="height: 50px; cursor: pointer;" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
-		</button>
-	</div>
+	<% unless current_page?(root_path) %>
+		<div class="position-absolute start-0">
+			<button class="border-0 ms-2" type="button" onclick="window.location.href='/'" style="background: none;">
+				<img style="height: 50px; cursor: pointer;" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo" data-bs-toggle="tooltip" title="Go to Home" style="cursor: pointer;">
+			</button>
+		</div>
+	<% end %>
 	<%= form_with url: location_path, method: :get, local: true, class: "rounded w-50" do %>
 		<div class="input-group text-white">
 			<%= text_field_tag :location, nil, style: "border-right: 0; border-radius: 12px 0 0 12px", class: "form-control bg-transparent text-light", placeholder: "Enter a city or zip code"%>
@@ -15,8 +17,20 @@
 	<% unless current_page?(map_path) %>
 		<div class="position-absolute end-0">
 			<button class="border-0 me-3" type="button" onclick="window.location.href='/map'" style="background: none;">
-				<i class="bi bi-globe text-white h3"></i>
+				<i class="bi bi-globe text-white h3"
+					data-bs-toggle="tooltip"
+					title="Go to Map" 
+					style="cursor: pointer;">
+				</i>
 			</button>
 		</div>
 	<% end %>
 </header>
+
+<script>
+	// Tooltips initialization
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
