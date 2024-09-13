@@ -1,3 +1,6 @@
+<head>
+	<%= stylesheet_link_tag "navbar", media: "all" %>
+</head>
 <header class="navbar sticky-top d-flex justify-content-center align-items-center py-3">
 	<% unless current_page?(root_path) %>
 		<div class="position-absolute start-0">
@@ -37,12 +40,12 @@
 			placeholder: "Enter a city or zip code",
 			minimumInputLength: 1,
 			ajax: {
-				url: '/location/search',  // A new controller action we'll create for handling searches
+				url: '/location/search',
 				dataType: 'json',
-				delay: 250, // Wait 250ms before sending the request
+				delay: 300, // Wait 300ms before sending the request
 				data: function (params) {
 					return {
-						q: params.term  // Send the search query to the backend
+						q: params.term
 					};
 				},
 				processResults: function (data) {
