@@ -9,7 +9,7 @@
 			</button>
 		</div>
 	<% end %>
-	<%= form_with url: location_path, method: :get, local: true, class: "rounded w-50" do %>
+	<%= form_with url: location_search_path, method: :get, local: true, class: "rounded w-50" do %>
 		<div class="input-group text-white">
 			<%= select_tag :location, options_for_select([]), style: "width: 100%", class: "form-control bg-transparent text-light searchable-select", placeholder: "Enter a city or zip code" %>
 		</div>
