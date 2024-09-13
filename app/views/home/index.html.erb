@@ -87,6 +87,10 @@
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
+  sessionStorage.removeItem("mapLat");
+  sessionStorage.removeItem("mapLng");
+  sessionStorage.removeItem("mapZoom");
+
   document.addEventListener("DOMContentLoaded", function() {
     particlesJS("particles-js", {
       particles: {

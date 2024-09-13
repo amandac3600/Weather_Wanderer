@@ -9,6 +9,9 @@
       <div class="row px-3">
         <div class="col-12 col-lg-6 d-flex justify-content-center px-0 mb-5 mb-lg-0">
           <div class="w-100">
+						<% if @from_map %>
+							<%= link_to "Back to Map", map_path, data: { turbo: false }, class: "btn btn-sm btn-light mb-3"%>
+						<% end %>
             <p id="last-updated-in-user-local-time" class="h5 fw-light"></p>
             <p class="h2 mt-3"><%= @description %></p>
 
@@ -155,5 +158,12 @@
 		const localTime = date.toLocaleString(undefined, options);
 
 		document.getElementById("last-updated-in-user-local-time").innerText = `Last updated: ${localTime}`;
+	}
+
+	var fromMap = <%= @from_map ? 'true' : 'false' %>;
+  if (!fromMap) {
+		sessionStorage.removeItem("mapLat");
+		sessionStorage.removeItem("mapLng");
+		sessionStorage.removeItem("mapZoom");
 	}
 </script>

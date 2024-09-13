@@ -7,6 +7,7 @@ class WeatherController < ApplicationController
   def show
     @latitude = params[:lat]
     @longitude = params[:lng]
+    @from_map = params[:from_map]
 
     if @latitude.present? && @longitude.present?
       @weather_data = fetch_weather(@latitude, @longitude)

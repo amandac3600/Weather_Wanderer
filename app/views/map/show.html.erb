@@ -23,14 +23,28 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById("map")) {
-      var map = L.map("map").setView([0, 0], 2); // Center the map on coordinates (0,0) and zoom level 2
+      var savedLat = sessionStorage.getItem("mapLat");
+      var savedLng = sessionStorage.getItem("mapLng");
+      var savedZoom = sessionStorage.getItem("mapZoom");
+
+      // Default coordinates and zoom level if no stored values are found
+      var lat = savedLat ? parseFloat(savedLat) : 0;
+      var lng = savedLng ? parseFloat(savedLng) : 0;
+      var zoom = savedZoom ? parseInt(savedZoom) : 2;
+
+      // Create the map and set its view based on stored or default values
+      var map = L.map("map").setView([lat, lng], zoom);
 
       L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://carto.com/attributions">CartoDB</a>`
       }).addTo(map);
 
       map.on("click", function(e) {
-        window.location.href = `/weather?lat=${e.latlng.lat}&lng=${e.latlng.lng}`;
+        // Store map position and zoom in sessionStorage
+        sessionStorage.setItem("mapLat", map.getCenter().lat);
+        sessionStorage.setItem("mapLng", map.getCenter().lng);
+        sessionStorage.setItem("mapZoom", map.getZoom());
+        window.location.href = `/weather?lat=${e.latlng.lat}&lng=${e.latlng.lng}&from_map=true`;
       });
     }
 
