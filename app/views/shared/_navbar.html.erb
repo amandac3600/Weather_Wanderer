@@ -54,8 +54,14 @@
 				cache: true
 			},
 			templateResult: function (result) {
-				return $('<div><a href="' + result.url + '">' + result.text + '</a></div>')
-			},
+				if (result.loading) {
+					return result.text;
+				}
+				if (!result.id) {
+					return "No results found";
+				}
+				return $('<div><a href="' + result.url + '">' + result.text + '</a></div>');
+			}
 		});
 
 		$('.searchable-select').on('select2:select', function (e) {
