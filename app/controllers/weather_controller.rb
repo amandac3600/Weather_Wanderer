@@ -72,9 +72,16 @@ class WeatherController < ApplicationController
   end
 
   def calculate_daily_min_max(forecast_data, date)
+    # TODO: dry this up
     daily_temperatures = forecast_data["list"].select do |data_point|
       Time.at(data_point["dt"]).strftime("%Y-%m-%d") == date
     end.map { |data_point| data_point["main"]["temp"] }
+
+    if daily_temperatures.length == 0
+      daily_temperatures = forecast_data["list"].select do |data_point|
+        Time.at(data_point["dt"]).strftime("%Y-%m-%d") == (Time.now + 1.day).strftime("%Y-%m-%d")
+      end.map { |data_point| data_point["main"]["temp"] }
+    end
 
     @max_in_f = daily_temperatures.length > 0 ? "#{daily_temperatures.max.round(0)}°F" : @temperature_in_f
     @max_in_c = daily_temperatures.length > 0 ? "#{((daily_temperatures.max.round(0) - 32) * 9/5).round(0)}°C" : @temperature_in_c
