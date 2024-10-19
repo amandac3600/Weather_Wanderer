@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%= stylesheet_link_tag "home", media: "all" %>
+	<title>Weather Wanderer</title>
+</head>
+<body class="text-white"> 
+  <%= render "shared/navbar" %>
+	<main class="float d-flex justify-content-center text-center">
+		<div id="particles-js"></div>
+		<div class="mt-5 mb-5">
+			<h1 class="display-2 fw-semibold mt-5 pt-5 pb-3">WeatherGuessr</h1>
+			<p class="h4 fw-light mt-3 mb-4">Try to guess the location on the map based on the weather conditions!</p>
+			<form action="<%= game_play_path %>" method="get" data-turbo="false">
+				<button type="submit" class="btn btn-outline-light btn-lg mt-4">Play now</button>
+			</form>
+		</div>
+	</main>
+</body>
+
+<script>
+	  document.addEventListener("DOMContentLoaded", function() {
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 100,
+        },
+        shape: {
+          type: "circle",
+        },
+        opacity: {
+          value: 0.5,
+        },
+        size: {
+          value: 3,
+        },
+        move: {
+          speed: 1,
+        },
+        line_linked: {
+          enable: false
+        }
+      }
+    });
+  });
+</script>

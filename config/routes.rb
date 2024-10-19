@@ -19,4 +19,8 @@ Rails.application.routes.draw do
   get "location/search", to: "location#search", as: :location_search
 
   post "clicks/increment", to: "clicks#increment"
+
+  get "game/home", to: "game#home", as: :game_home
+  get "game/play", to: "game#play", as: :game_play
+  get "game/result", to: "game#result", as: :game_result
 end

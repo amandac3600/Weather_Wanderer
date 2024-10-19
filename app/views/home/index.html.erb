@@ -11,10 +11,15 @@
 		<div class="mt-5">
 			<img id="logo" style="height: 35vh" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
 			<p class="display-1 text-white fw-semibold mt-3">Weather Wanderer</p>
-			<p class="h4 text-white pb-5 fw-light" >Your Global Weather Adventure</p>
-			<a href="/map" data-turbo="false" class="btn btn-outline-light btn-lg mt-2">
-				Explore Now
-			</a>
+			<p class="h4 text-white pb-4 fw-light" >Your Global Weather Adventure</p>
+      <div class="d-flex flex-column align-items-center">
+        <a href="/map" data-turbo="false" class="btn btn-outline-light btn-lg mt-2 mb-2">
+          Explore Now
+        </a>
+        <a href="<%= game_home_path %>" data-turbo="false" class="btn btn-outline-light btn-lg mt-2">
+          Play WeatherGuessr
+        </a>
+      </div>
 		</div>
 	</main>
   <footer class="text-white">
