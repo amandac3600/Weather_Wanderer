@@ -1,5 +1,8 @@
 <head>
   <%= stylesheet_link_tag "weather", media: "all" %>
+  <!-- Botpress Chatbot (using neat-curlew)--> 
+  <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2024/10/19/02/20241019023642-MP1E60IP.js"></script>
 </head>
 
 <body class="text-white">
@@ -166,4 +169,14 @@
 		sessionStorage.removeItem("mapLng");
 		sessionStorage.removeItem("mapZoom");
 	}
+
+  // Set up event listener for when the web chat is opened
+  window.botpress.on('webchat:opened', (conversationId) => {
+    sendMessageToBot();
+  });
+
+  function sendMessageToBot() {
+    window.botpress.sendMessage("The current location is at latitude: <%= @latitude %>, longitude: <%= @longitude %>");
+  }
+
 </script>
