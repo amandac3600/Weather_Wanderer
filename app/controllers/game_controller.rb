@@ -52,11 +52,11 @@ class GameController < ApplicationController
     { name: "Prague", country: "Czech Republic", latitude: 50.0755, longitude: 14.4378 }
   ]
 
-	def home
-	end
+  def home
+  end
 
-	def play
-		if session[:location_name].nil?
+  def play
+    if session[:location_name].nil?
       random_weather = fetch_weather_for_location(LOCATIONS.sample)
       random_forecast = fetch_forecast_for_location(LOCATIONS.sample)
     else
@@ -64,49 +64,49 @@ class GameController < ApplicationController
       random_forecast = fetch_forecast(session[:latitude], session[:longitude])
     end
 
-		@location_name = random_weather["name"]
-		@weather = random_weather["weather"][0]
-		@description = @weather["description"].capitalize
-		calculate_location_time_and_name(random_weather)
-		current_date = Time.now.strftime("%Y-%m-%d")
-		# TODO: get this based off location's timezone
+    @location_name = random_weather["name"]
+    @weather = random_weather["weather"][0]
+    @description = @weather["description"].capitalize
+    calculate_location_time_and_name(random_weather)
+    current_date = Time.now.strftime("%Y-%m-%d")
+    # TODO: get this based off location's timezone
     calculate_daily_min_max(random_forecast, current_date)
-		calculate_sun_rise_and_set(random_weather)
-		calculate_temperature(random_weather)
-		calculate_extra_data(random_weather)
-	end
+    calculate_sun_rise_and_set(random_weather)
+    calculate_temperature(random_weather)
+    calculate_extra_data(random_weather)
+  end
 
-	def result
-		guessed_lat = params[:lat].to_f
-		guessed_lng = params[:lng].to_f
-		@latitude = session[:latitude]
-		@longitude = session[:longitude]
-		@location_name = session[:location_name]
+  def result
+    guessed_lat = params[:lat].to_f
+    guessed_lng = params[:lng].to_f
+    @latitude = session[:latitude]
+    @longitude = session[:longitude]
+    @location_name = session[:location_name]
     @country = session[:country]
 
-		@distance = haversine_distance_miles(guessed_lat, guessed_lng, @latitude, @longitude)
+    @distance = haversine_distance_miles(guessed_lat, guessed_lng, @latitude, @longitude)
 
     session.delete(:location_name)
 
     respond_to do |format|
         format.json { render json: { location_name: @location_name, distance: @distance, country: @country } }
     end
-	end
+  end
 
-	private
+  private
 
-	def fetch_weather_for_location(location)
+  def fetch_weather_for_location(location)
     @latitude = location[:latitude]
     @longitude = location[:longitude]
     weather = fetch_weather(@latitude, @longitude)
 
-		session[:latitude] = @latitude
-		session[:longitude] = @longitude
-		session[:location_name] = location[:name]
+    session[:latitude] = @latitude
+    session[:longitude] = @longitude
+    session[:location_name] = location[:name]
     session[:country] = location[:country]
 
     weather
-	end
+  end
 
   def fetch_forecast_for_location(location)
     @latitude = location[:latitude]
@@ -116,7 +116,7 @@ class GameController < ApplicationController
     forecast
   end
 
-	def fetch_weather(lat, lng)
+  def fetch_weather(lat, lng)
     api_key = ENV["OPENWEATHER_API_KEY"]
     uri = URI("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lng}&appid=#{api_key}&units=imperial&lang=en")
     response = Net::HTTP.get(uri)
@@ -130,7 +130,7 @@ class GameController < ApplicationController
     JSON.parse(response)
   end
 
-	def get_location_local_time(timezone_offset)
+  def get_location_local_time(timezone_offset)
     utc_time = Time.now.utc
     local_time = utc_time + timezone_offset
     local_time.strftime("%I:%M %p, %b %d") # E.g., "02:30 PM, Sep 05"
@@ -204,30 +204,27 @@ class GameController < ApplicationController
     end
   end
 
-	# Haversine formula to find distance between 2 locations, which accounts for the curvature of the Earth
-	def haversine_distance_miles(lat1, lon1, lat2, lon2)
-		# Radius of the Earth in miles
-		earth_radius_miles = 3959.0
-	
-		# Convert latitude and longitude from degrees to radians
-		lat1_rad = lat1 * Math::PI / 180
-		lon1_rad = lon1 * Math::PI / 180
-		lat2_rad = lat2 * Math::PI / 180
-		lon2_rad = lon2 * Math::PI / 180
-	
-		# Differences in coordinates
-		delta_lat = lat2_rad - lat1_rad
-		delta_lon = lon2_rad - lon1_rad
-	
-		# Haversine formula
-		a = Math.sin(delta_lat / 2)**2 +
-				Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(delta_lon / 2)**2
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-	
-		# Distance in miles
-		distance = earth_radius_miles * c
-	
-		distance.round(2)
-	end
+  # Haversine formula to find distance between 2 locations, which accounts for the curvature of the Earth
+  def haversine_distance_miles(lat1, lon1, lat2, lon2)
+    # Radius of the Earth in miles
+    earth_radius_miles = 3959.0
 
+    # Convert latitude and longitude from degrees to radians
+    lat1_rad = lat1 * Math::PI / 180
+    lon1_rad = lon1 * Math::PI / 180
+    lat2_rad = lat2 * Math::PI / 180
+    lon2_rad = lon2 * Math::PI / 180
+
+    delta_lat = lat2_rad - lat1_rad
+    delta_lon = lon2_rad - lon1_rad
+
+    # Haversine formula
+    a = Math.sin(delta_lat / 2)**2 +
+        Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(delta_lon / 2)**2
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    distance = earth_radius_miles * c
+
+    distance.round(2)
+  end
 end
