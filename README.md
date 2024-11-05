@@ -13,10 +13,18 @@
 ![Gif of Click from Map](/app/assets/images/click_from_map.gif)
 
 ### Global Weather Search
-- Users can a city or zip code and get real-time weather information.
+- Users can search by city or zip code and get real-time weather information.
+![Gif of Searching from Search Bar](/app/assets/images/search_from_search_bar.gif)
+
+### AI Chatbot Weather Assistance
+- Users can interact with an integrated chatbot to ask weather-related questions. The chatbot can provide real-time weather information, suggest suitable activities for the conditions, or answer questions about upcoming weather forecasts.
+![Gif of Chatbot Interaction](/app/assets/images/chatbot.gif)
 
 
-- **Modern Interface:** Clean and user-friendly design to enhance your weather exploration experience.
+### WeatherGuessr Mode
+- Users can play WeatherGuessr, inspired by GeoGuessr! Users are shown the weather conditions for a random location and can click on the map to make a guess for where the location is.
+![Gif of WeatherGuessr Play](/app/assets/images/weatherguessr.gif)
+
 
 ## Tech Stack
 
