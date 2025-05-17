@@ -1,7 +1,7 @@
 # 🌍✨ Weather Wanderer ✨🌦️
 ![Weather Wanderer Logo](app/assets/images/logo_and_name.png)
 
-### Explore now: [Live Demo](https://weather-wanderer-dddddd1a315c.herokuapp.com/)
+### Explore now: [Live Demo](https://weather-wanderer-wild-cherry-8496.fly.dev/)
 
 **Weather Wanderer** is a dynamic weather exploration app that allows users to view current weather conditions from anywhere in the world. You can search by city or zip code, or interact directly with a world map to find out the weather at any location.
 
