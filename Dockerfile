@@ -16,4 +16,4 @@ RUN bundle install
 
 COPY . /app
 
-CMD ["ruby", "weatherwanderer.rb"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
