@@ -36,7 +36,8 @@
 - **JavaScript:** For dynamic and interactive frontend features.
 - **OpenWeatherMap API:** Provides accurate and up-to-date weather data.
 - **Botpress:** Integrates a chatbot for enhanced user interaction and support within the application.
-- **Heroku:** Deployment platform for seamless application hosting.
+- **Fly.io:** Lightweight cloud hosting platform for deploying and scaling the app.
+- **Docker:** Containerization tool for consistent development and deployment environments.
 - **HTML5 & CSS:** For a responsive and visually appealing user interface.
 
 
