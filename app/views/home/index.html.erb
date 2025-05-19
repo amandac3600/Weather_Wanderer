@@ -7,21 +7,28 @@
 <body>
   <%= render "shared/navbar" %>
 	<main class="float d-flex justify-content-center text-center">
+    <!-- Particles Background -->
 		<div id="particles-js"></div>
-		<div class="mt-5">
-			<img id="logo" style="height: 35vh" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo">
-			<p class="display-1 text-white fw-semibold mt-3">Weather Wanderer</p>
-			<p class="h4 text-white pb-4 fw-light" >Your Global Weather Adventure</p>
-      <div class="d-flex flex-column align-items-center">
-        <a href="/map" data-turbo="false" class="btn btn-outline-light btn-lg mt-2 mb-2">
-          Explore Now
+
+    <!-- Content -->
+    <div class="container py-5">
+      <img id="logo" src="<%= image_path("logo.png") %>" alt="Weather Wanderer Logo"
+          class="img-fluid mb-4" style="max-height: 35vh;">
+      
+      <h1 class="display-1 fw-bold text-white mb-3">Weather Wanderer</h1>
+      <p class="h4 text-white fw-light mb-4">Your Global Weather Adventure</p>
+
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a href="/map" data-turbo="false" class="btn btn-outline-light btn-lg px-5">
+          🌍 Explore Now
         </a>
-        <a href="<%= game_home_path %>" data-turbo="false" class="btn btn-outline-light btn-lg mt-2">
-          Play WeatherGuessr
+        <a href="<%= game_home_path %>" data-turbo="false" class="btn btn-light btn-lg px-5">
+          🎮 Play WeatherGuessr
         </a>
       </div>
-		</div>
+    </div>
 	</main>
+
   <footer class="text-white">
     <div class="d-flex position-absolute bottom-0 align-items-center ms-4 mb-2">
       <p id="cloud-clicker-count" class="h5" ><%= @click.total_clicks %></p>
