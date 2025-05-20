@@ -4,19 +4,56 @@
 	<%= stylesheet_link_tag "application", media: "all" %>
 	<title>Weather Wanderer</title>
 </head>
-<body class="text-white"> 
+<body class="bg-dark text-white min-vh-100 d-flex flex-column">
   <%= render "shared/navbar" %>
-	<main class="float d-flex justify-content-center text-center">
-		<div id="particles-js"></div>
-		<div class="mt-5 mb-5">
-			<h1 class="display-2 fw-semibold mt-5 pt-5 pb-3">WeatherGuessr</h1>
-			<p class="h4 fw-light mt-3 mb-4">Try to guess the location on the map based on the weather conditions!</p>
-			<form action="<%= game_play_path %>" method="get" data-turbo="false">
-				<button type="submit" class="btn btn-outline-light btn-lg mt-4">Play now</button>
-			</form>
-		</div>
-	</main>
+
+  <!-- Particles background -->
+  <div id="particles-js" class="position-absolute top-0 start-0 w-100 h-100 z-n1"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow-1 d-flex pb-5 align-items-center justify-content-center text-center position-relative">
+    <div class="container py-5 d-flex flex-column align-items-center">
+      <h1 class="display-2 fw-bold mb-3">🌦️ WeatherGuessr</h1>
+      <p class="h4 fw-light mb-4">Try to guess the location on the map based on the weather conditions!</p>
+
+      <form action="<%= game_play_path %>" method="get" data-turbo="false" class="w-auto mb-3">
+        <button type="submit" class="btn btn-light btn-lg shadow px-4">
+          <i class="bi bi-play-fill me-2"></i> Play Now
+        </button>
+      </form>
+
+      <button type="button" class="btn btn-outline-light btn-lg px-3" data-bs-toggle="modal" data-bs-target="#howToPlayModal">
+        <i class="bi bi-question-circle me-2"></i> How to Play
+      </button>
+    </div>
+  </main>
+
+  <!-- How to Play Modal -->
+  <div class="modal fade" id="howToPlayModal" tabindex="-1" aria-labelledby="howToPlayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-light text-dark border-0 shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title ms-2" id="howToPlayModalLabel">🧭 How to Play</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-6">
+          <ul class="list-unstyled">
+            <li class="ms-2 mb-2">🌤️ View the current weather from a mystery location</li>
+            <li class="ms-2 mb-2">🧐 Use clues like temperature, humidity, and wind</li>
+            <li class="ms-2 mb-2">🗺️ Click on the map where you think it is</li>
+            <li class="ms-2 mb-2">🎯 Get points based on how close your guess is!</li>
+          </ul>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Got it!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 
 <script>
 	  document.addEventListener("DOMContentLoaded", function() {
